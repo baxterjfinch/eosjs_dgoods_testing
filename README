@@ -1,4 +1,4 @@
-1.) Create Three KeyPairs and save output:
+1.) Create Two KeyPairs and save output:
 
     contract owner
     $ cleos create key --to-console
