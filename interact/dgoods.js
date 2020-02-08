@@ -61,7 +61,7 @@ module.exports = {
       code: account,      // Contract that we target
       scope: account,         // Account that owns the data
       table: table,        // Table name
-      limit: 10,                // Maximum number of rows that we want to get
+      limit: 50,                // Maximum number of rows that we want to get
       reverse: false,           // Optional: Get reversed data
       show_payer: false          // Optional: Show ram payer
     }).then((results) => {
@@ -104,7 +104,7 @@ module.exports = {
         data: data,
       }]
     }, {
-      blocksBehind: 0,
+      blocksBehind: 3,
       expireSeconds: 30,
     }).then((results) => {
       console.log(results);
