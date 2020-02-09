@@ -1,4 +1,4 @@
-module.exports = function DeployContract(api, {account, contractDir}) {
+module.exports = function DeployContract(fs, api, {account, contractDir}) {
   const { wasmPath, abiPath } = getDeployableFilesFromDir(contractDir)
   // 1. Prepare SETCODE
   // read the file and make a hex string out of it

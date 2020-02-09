@@ -1,0 +1,220 @@
+/* Blue Popsicle: #0f2862
+
+Redline: #9e363a
+
+Purple Shadow: #091f36
+
+Grey Blue Leaf: #4f5f76 */
+
+/*
+SECONDARY
+
+sky blue #00A8E8
+muddy blue #007EA7
+navy blue #003459
+deep navy #00171F */
+
+
+html {
+    height: 100%;
+}
+
+body {
+    font-family: 'Montserrat', sans-serif;
+    height: 100%;
+}
+
+#application_container {
+    height: 100%;
+    /* background-color: #14171b; */
+}
+
+.navbar-main {
+    width: 100%;
+    height: 60px;
+    position: relative;
+}
+
+.nav-buttons {
+    right: 0;
+    height: 100%;
+    display: inline-block;
+    padding: 0px;
+    width: 40%;
+    font-size: 20px;
+    z-index: 100;
+    border: none;
+    box-shadow: 1px 1px 4px 0px #214167;
+    border-radius: 0;
+    float: left;
+    color: white;
+    font-weight: 900;
+}
+
+.nav-buttons:hover {
+    color: white;
+}
+
+.market-button {
+    position: relative;
+    background-color: #293852;
+    display: inline-block;
+
+}
+.market-button::after {
+    position: absolute;
+    right: -50px;
+    top: 0;
+    content: "";
+    border-bottom: 22px solid transparent;
+    border-left: 30px solid #192c3c;
+    border-top: 38px solid #293852;
+    border-right: 20px solid transparent;
+}
+
+.account-button {
+    position: relative;
+    float: right;
+    background-color: #293852;
+    display: inline-block;
+
+}
+.account-button::before {
+    position: absolute;
+    left: -50px;
+    top: 0;
+    content: "";
+    border-bottom: 22px solid transparent;
+    border-left: 20px solid transparent;
+    border-top: 38px solid #293852;
+    border-right: 30px solid #192c3c;
+}
+
+.nav-buttons:focus {
+    outline: 0;
+    box-shadow: 2px 1px 0px 5px rgb(172, 187, 202);
+}
+
+.login-button {
+    width: 500px;
+    left: calc(50% - 250px);
+    position: absolute;
+    box-shadow: 1px 1px 4px 0px #214167;
+    padding: 0;
+    height: 39px;
+    color: white;
+    font-weight: 900;
+    z-index: 10;
+    background-color: #293852cc;
+}
+
+.login-button:hover {
+    color: white;
+    background-color: #192c3c;
+}
+
+.login-button:focus {
+    box-shadow: unset;
+    background-color: #00aeff;
+    color: white;
+}
+
+.login-panel {
+    position: absolute;
+    transition: .2s;
+    width: 600px;
+    height: 263px;
+    padding-top: 100px;
+    top: -217px;
+    background-color: #2085d6e0;
+    left: calc(50% - 300px);
+    z-index: 1;
+}
+
+.input-login-field-class {
+    height: 50px;
+}
+
+.login-button-submit {
+    color: white;
+    font-weight: 900;
+    background-color: #293852cc;
+    border: none;
+}
+.input-login-group {
+    width: calc(100% - 50px);
+    padding-left: 50px;
+}
+
+.token-container-main {
+    width: calc(100% - 200px);
+    background-color: transparent;
+    height: 100%;
+    margin-left: 200px;
+    position: absolute;
+    display: inline-block;
+    top: 0;
+    right: 0;
+}
+
+
+
+.token-container-mason {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-between;
+    height: 100%;
+    overflow-y: auto;
+    padding-top: 110px;
+    background-color: transparent;
+}
+
+.token-card-mason {
+    flex: 0 1 calc(100%);
+    box-shadow: 0px 0px 5px 1px #2938522b;
+    height: 150px;
+    margin-left: 3px;
+    background-color: white;
+    margin-right: 200px;
+}
+
+.token-card-mason:hover {
+    cursor: pointer;
+}
+
+.main-token-card-class  {
+    padding: 50px;
+    height: 100%;
+    display: inline-block;
+    line-height: 60px;
+    font-weight: 900;
+    color: black;
+    text-align: left;
+
+}
+.batch-id {
+
+    float: left;
+}
+
+.batch-count {
+    float: left;
+    width: 300px;
+    max-width: 300px;
+}
+
+.token-seller {
+    width: 500px;
+}
+
+.token-cost {
+    float: right;
+
+}
+
+.token-expiration {
+    max-width: 200px;
+    padding-left: 0;
+    width: 200px;
+    padding-right: 0;
+}

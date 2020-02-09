@@ -71,13 +71,13 @@ module.exports = {
     });
   },
 
-  CreateToken(api, data) {
+  CreateToken(api, account, data) {
     api.transact({
       actions: [{
-        account: data.issuer,
+        account: account,
         name: 'create',
         authorization: [{
-          actor: data.issuer,
+          actor: account,
           permission: 'active',
         }],
         data: data,
@@ -113,12 +113,225 @@ module.exports = {
     });
   },
 
+  BurnNFTTokens(api, contract, owner, ids) {
+    api.transact({
+      actions: [{
+        account: contract,
+        name: 'burnnft',
+        authorization: [{
+          actor: owner,
+          permission: 'active',
+        }],
+        data: {
+          "owner": owner,
+          "dgood_ids": ids
+        },
+      }]
+    }, {
+      blocksBehind: 3,
+      expireSeconds: 30,
+    }).then((results) => {
+      console.log(results);
+    }).catch((err) => {
+      console.log(err);
+    });
+  },
+
+  BurnFTTokens(api, contract, owner, category_name_id, quantity) {
+    api.transact({
+      actions: [{
+        account: contract,
+        name: 'burnft',
+        authorization: [{
+          actor: owner,
+          permission: 'active',
+        }],
+        data: {
+          "owner": owner,
+          "category_name_id": category_name_id,
+          "quantity": quantity
+        },
+      }]
+    }, {
+      blocksBehind: 3,
+      expireSeconds: 30,
+    }).then((results) => {
+      console.log(results);
+    }).catch((err) => {
+      console.log(err);
+    });
+  },
+
+  TransferNFT(api, from, to, ids, memo) {
+    api.transact({
+      actions: [{
+        account: from,
+        name: 'transfernft',
+        authorization: [{
+          actor: from,
+          permission: 'active',
+        }],
+        data: {
+          "from": from,
+          "to": to,
+          "dgood_ids": ids,
+          "memo": memo
+        },
+      }]
+    }, {
+      blocksBehind: 3,
+      expireSeconds: 30,
+    }).then((results) => {
+      console.log(results);
+    }).catch((err) => {
+      console.log(err);
+    });
+  },
+
+  TransferFT(api, contract, from, to, category, token_name, quantity, memo) {
+    api.transact({
+      actions: [{
+        account: contract,
+        name: 'transferft',
+        authorization: [{
+          actor: from,
+          permission: 'active',
+        }],
+        data: {
+          "from": from,
+          "to": to,
+          "category": category,
+          "token_name": token_name,
+          "quantity": quantity,
+          "memo": memo
+        },
+      }]
+    }, {
+      blocksBehind: 3,
+      expireSeconds: 30,
+    }).then((results) => {
+      console.log(results);
+    }).catch((err) => {
+      console.log(err);
+    });
+  },
+
+  SubmitTokenForSale(api, contract, seller, ids, net_sale_amount) {
+    api.transact({
+      actions: [{
+        account: contract,
+        name: 'listsalenft',
+        authorization: [{
+          actor: seller,
+          permission: 'active',
+        }],
+        data: {
+          "seller": seller,
+          "dgood_ids": ids,
+          "net_sale_amount": net_sale_amount
+        },
+      }]
+    }, {
+      blocksBehind: 3,
+      expireSeconds: 30,
+    }).then((results) => {
+      console.log(results);
+    }).catch((err) => {
+      console.log(err);
+    });
+  },
+
+  CancelNFTSale(api, contract, seller, id) {
+    api.transact({
+      actions: [{
+        account: contract,
+        name: 'closesalenft',
+        authorization: [{
+          actor: seller,
+          permission: 'active',
+        }],
+        data: {
+          "seller": seller,
+          "batch_id": id
+        },
+      }]
+    }, {
+      blocksBehind: 3,
+      expireSeconds: 30,
+    }).then((results) => {
+      console.log(results);
+    }).catch((err) => {
+      console.log(err);
+    });
+  },
+
+  GetTokensForSale(rpc, contract, scope) {
+      return new Promise((resolve, reject) => {
+          rpc.get_table_rows({
+            json: true,               // Get the response as json
+            code: contract,      // Contract that we target
+            scope: scope,         // Account that owns the data
+            table: 'asks',        // Table name
+            limit: 10,                // Maximum number of rows that we want to get
+            reverse: false,           // Optional: Get reversed data
+            show_payer: false          // Optional: Show ram payer
+          }).then((results) => {
+            resolve(results);
+          }).catch((err) => {
+            reject(err);
+          });
+      })
+  },
+
+  BuyTokenForSale(api, contract, buyer, id) {
+    console.log(`${id},${buyer}`);
+    api.transact({
+      actions: [{
+        account: 'eosio.token',
+        name: 'transfer',
+        authorization: [{
+          actor: buyer,
+          permission: 'active',
+        }],
+        data: {
+          "from": buyer,
+          "to": contract,
+          "quantity": "1.0000 EOS",
+          "memo": `${id},${buyer}`
+        },
+      }]
+    }, {
+      blocksBehind: 3,
+      expireSeconds: 30,
+    }).then((results) => {
+      console.log(results);
+    }).catch((err) => {
+      console.log(err);
+    });
+  },
+
   GetTableByCategory(rpc, account, category) {
     rpc.get_table_rows({
       json: true,               // Get the response as json
       code: account,      // Contract that we target
       scope: account,         // Account that owns the data
       table: 'dgoodstats',        // Table name
+      limit: 10,                // Maximum number of rows that we want to get
+      reverse: false,           // Optional: Get reversed data
+      show_payer: false          // Optional: Show ram payer
+    }).then((results) => {
+      console.log(results);
+    }).catch((err) => {
+      console.log(err);
+    });
+  },
+
+  GetAccountTokens(rpc, contract, account, table) {
+    rpc.get_table_rows({
+      json: true,               // Get the response as json
+      code: contract,      // Contract that we target
+      scope: account,         // Account that owns the data
+      table: table,        // Table name
       limit: 10,                // Maximum number of rows that we want to get
       reverse: false,           // Optional: Get reversed data
       show_payer: false          // Optional: Show ram payer
