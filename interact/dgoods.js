@@ -72,24 +72,26 @@ module.exports = {
   },
 
   CreateToken(api, account, data) {
-    api.transact({
-      actions: [{
-        account: account,
-        name: 'create',
-        authorization: [{
-          actor: account,
-          permission: 'active',
-        }],
-        data: data,
-      }]
-    }, {
-      blocksBehind: 3,
-      expireSeconds: 30,
-    }).then((results) => {
-      console.log(results);
-    }).catch((err) => {
-      console.log(err);
-    });
+       return new Promise((resolve, reject) => {
+            api.transact({
+              actions: [{
+                account: account,
+                name: 'create',
+                authorization: [{
+                  actor: account,
+                  permission: 'active',
+                }],
+                data: data,
+              }]
+            }, {
+              blocksBehind: 3,
+              expireSeconds: 30,
+            }).then((results) => {
+              resolve(results);
+            }).catch((err) => {
+              reject(err);
+            });
+        })
   },
 
   IssueToken(api, account, data) {

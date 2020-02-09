@@ -30,3 +30,17 @@ export function Login(key, user) {
         })
     })
 }
+
+export function CreateToken(details) {
+    return new Promise((resolve, reject) => {
+        $.ajax({
+            url: "http://127.0.0.1:3000/api/create_token",
+            type: "POST",
+            data: details
+        }).then((res) =>{
+            resolve(res);
+        }).catch((err) => {
+            console.log(err)
+        })
+    })
+}

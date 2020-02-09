@@ -64,6 +64,29 @@ app.post('/api/login', (req, res) => {
     })
 })
 
+app.post('/api/create_token', (req, res) => {
+    let testCreateFungibleTokenData = {
+        "issuer": req.body.user,
+        "rev_partner": contractAccount,
+        "category": req.body.category,
+        "token_name": req.body.name,
+        "fungible": req.body.fungible,
+        "burnable": req.body.burnable,
+        "sellable": req.body.sellable,
+        "transferable": req.body.transferable,
+        "rev_split": req.body.split,
+        "base_uri": req.body.uri,
+        "max_issue_days": req.body.midays,
+        "max_supply": req.body.supply
+    }
+
+    Dgoods.CreateToken(api, req.body.user, testCreateFungibleTokenData).then((response) => {
+        res.send(response);
+    }).catch((err) => {
+        res.send(err);
+    })
+})
+
 app.get('/api/marketplace', (req, res) => {
     Dgoods.GetTokensForSale(rpc, contractAccount, contractAccount).then((response) => {
         res.send(response);
@@ -101,18 +124,18 @@ let testIssueTokenData = {
 }
 
 let testCreateFungibleTokenData = {
-  "issuer": contractAccount,
-  "rev_partner": contractAccount,
-  "category": "fungiblecat",
-  "token_name": "fungibletest",
-  "fungible": true,
-  "burnable": true,
-  "sellable": true,
-  "transferable": true,
-  "rev_split": 0,
-  "base_uri": "https://myticketingsite.com/concert1/ticket1/",
-  "max_issue_days": 0,
-  "max_supply": "100000 DOOPS"
+  "issuer": null,
+  "rev_partner": null,
+  "category": null,
+  "token_name": null,
+  "fungible": null,
+  "burnable": null,
+  "sellable": null,
+  "transferable": null,
+  "rev_split": null,
+  "base_uri": null,
+  "max_issue_days": null,
+  "max_supply": null
 }
 
 let testIssueFungibleTokenData = {

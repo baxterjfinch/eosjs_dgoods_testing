@@ -26,7 +26,36 @@ body {
 
 #application_container {
     height: 100%;
+    position: relative;
+    overflow: hidden;
     /* background-color: #14171b; */
+}
+
+#navbar_container {
+    position: sticky;
+    width: 100%;
+    z-index: 1000;
+    top: 0;
+}
+
+#creator_container {
+    transition: .2s;
+    width: 100px;
+    background-color: #2085d6e0;
+    height: calc(100% - 60px);
+    z-index: 1000000000;
+    left: -95px;
+    position: absolute;
+}
+
+#wallet_container {
+    transition: .2s;
+    width: 100px;
+    background-color: #2085d6e0;
+    height: 100%;
+    z-index: 1000000000;
+    right: -95px;
+    position: absolute;
 }
 
 .navbar-main {
@@ -92,7 +121,7 @@ body {
 
 .nav-buttons:focus {
     outline: 0;
-    box-shadow: 2px 1px 0px 5px rgb(172, 187, 202);
+    box-shadow: unset;
 }
 
 .login-button {
@@ -146,75 +175,139 @@ body {
     padding-left: 50px;
 }
 
-.token-container-main {
+.logout-button {
+    height: 50px;
     width: calc(100% - 200px);
+    margin-left: 100px;
+    color: white;
+    font-weight: 900;
+    background-color: #da5927;
+    border: none;
+}
+
+.token-container-main {
+    width: calc(100% - 400px);
     background-color: transparent;
     height: 100%;
     margin-left: 200px;
     position: absolute;
     display: inline-block;
+    margin-right: 200px;
     top: 0;
     right: 0;
+    text-align: center;
 }
 
+.creator-panel {
+    background-color: #293852eb;
+    width: calc(100% - 7px);
+    height: calc(100% - 75px);
+    overflow-y: auto;
+    visibility: hidden;
+    transition: .2s;
+    box-shadow: 1px 1px 4px 0px #214167;
+}
 
+.wallet-panel {
+    background-color: #293852eb;
+    width: calc(100% - 7px);
+    height: 100%;
+    float: right;
+    box-shadow: 1px 1px 4px 0px #214167;
+}
 
 .token-container-mason {
-    display: flex;
-    flex-wrap: wrap;
-    justify-content: space-between;
     height: 100%;
     overflow-y: auto;
-    padding-top: 110px;
+    margin-top: 110px;
     background-color: transparent;
 }
 
 .token-card-mason {
-    flex: 0 1 calc(100%);
     box-shadow: 0px 0px 5px 1px #2938522b;
-    height: 150px;
-    margin-left: 3px;
     background-color: white;
-    margin-right: 200px;
+    width: calc(25% - 34px);
+    height: auto;
+    display: inline-block;
+    margin: 15px;
 }
 
 .token-card-mason:hover {
     cursor: pointer;
 }
 
+.token-card-image {
+    height: 200px;
+    padding: 25px;
+}
+
 .main-token-card-class  {
-    padding: 50px;
-    height: 100%;
-    display: inline-block;
-    line-height: 60px;
+    display: block;
+    line-height: 50px;
     font-weight: 900;
     color: black;
     text-align: left;
-
-}
-.batch-id {
-
-    float: left;
-}
-
-.batch-count {
-    float: left;
-    width: 300px;
-    max-width: 300px;
+    width: 100%;
+    padding: 25px;
+    padding-top: 0px;
+    padding-bottom: 0;
 }
 
-.token-seller {
-    width: 500px;
-}
-
-.token-cost {
-    float: right;
+.create-switcher {
 
 }
 
-.token-expiration {
-    max-width: 200px;
-    padding-left: 0;
-    width: 200px;
-    padding-right: 0;
+.left-panel-button {
+    background-color: #4189cc;
+    border-top-left-radius: 0px;
+    border: none;
+}
+
+.right-panel-button {
+    background-color: #4189cc;
+    border-top-right-radius: 0px;
+    border: none;
+}
+
+.token-form-class {
+    padding: 50px;
+    padding-top: 0;
+}
+
+.token-creator-title {
+    padding: 15px;
+    padding-left: 0px;
+    color: white;
+    font-weight: 900;
+    margin: 0px;
+}
+
+.submit-create-token {
+    position: absolute;
+    bottom: 0;
+    width: 100%;
+    left: 0;
+    border-radius: 0;
+    height: 75px;
+    background-color: transparent;
+    font-weight: 900;
+    font-size: 20px;
+}
+
+.token-boolean-group {
+    padding-top: 50px;
+}
+.token-booleans {
+    position: relative;
+    display: block;
+    font-weight: 900;
+    padding-left: 1.25rem;
+    color: white;
+}
+
+.create-help-text {
+    color: white;
+}
+.form-group {
+    margin-bottom: 0px;
 }

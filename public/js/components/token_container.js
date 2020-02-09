@@ -32,6 +32,7 @@ class BatchTokenCard {
         this.seller = item.seller;
         this.cost = item.amount;
         this.expiration = item.expiration;
+        this.image = `<img src="../../images/coins.png" alt="Sale Image" height="150" width="150">`;
     }
 
     getBatchIds(batch) {
@@ -48,9 +49,10 @@ class BatchTokenCard {
     Render() {
         return `
             <div id="item_${this.id}" class="token-card-mason">
+                <div class="token-card-image">${this.image}</div>
+                <div class="main-token-card-class token-cost">${this.cost}</div>
                 <div class="main-token-card-class batch-count">IDs In Sale: ${this.getBatchIds(this.dgood_ids)}</div>
                 <div class="main-token-card-class token-seller">${this.seller}</div>
-                <div class="main-token-card-class token-cost">${this.cost}</div>
                 <div class="main-token-card-class token-expiration">${this.expiration}</div>
             </div>
         `
