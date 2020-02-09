@@ -1,4 +1,4 @@
-![Front-end Marketplace and Wallet Access](https://i.imgur.com/bhl9Qlz.png)
+![Front-end Marketplace and Wallet Access](https://i.imgur.com/FrPbtff.png)
 
 
 
