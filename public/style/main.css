@@ -311,3 +311,76 @@ body {
 .form-group {
     margin-bottom: 0px;
 }
+
+.owned-wallet-token-item {
+    height: 50px;
+    position: relative;
+    padding: 15px;
+}
+
+.wallet-token-name {
+    width: 25%;
+    font-size: 14px;
+}
+
+.wallet-token-category {
+    width: 50%;
+    text-align: center;
+}
+
+.wallet-token-amount {
+    width: 25%;
+    font-size: 14px;
+    text-align: right;
+    right: 15px;
+    position: absolute;
+
+}
+.owned-item {
+    display: inline-block;
+    color: white;
+    font-weight: 900;
+}
+
+.owned-tokens-panel {
+    min-height: 200px;
+}
+
+.owned-tokens-header {
+    padding: 15px;
+    font-weight: 900;
+    background-color: #4593d9;
+    color: white;
+}
+
+.unissued-tokens-header {
+    padding: 15px;
+    font-weight: 900;
+    background-color: #4593d9;
+    color: white;
+}
+.token-header-name {
+    width: 25%;
+    min-width: 100px;
+    display: inline-block;
+}
+
+.token-header-category {
+    width: 50%;
+    min-width: 100px;
+    display: inline-block;
+    text-align: center;
+}
+
+.token-header-amount {
+    min-width: 100px;
+    float: right;
+    text-align: right;
+    display: inline-block;
+}
+
+.unissued-tokens-container {
+    overflow-y: auto;
+    height: calc(100% - 368px);
+
+}

@@ -10,7 +10,7 @@ export default class MainApplication {
     constructor(selector) {
         this._user = new User();
         this._authed = this._checkAuthentication();
-        console.log(this._user);
+
         this._dom = document.getElementById(selector);
         this._navbar = new Navbar('navbar_container', this._user, this._authed);
         this._creator = new Creator('creator_container', this._user);
@@ -22,6 +22,10 @@ export default class MainApplication {
         this._renderComponents();
         this._renderComponentsListeners();
         this.GetMarketplaceItems();
+
+        if (this._authed) {
+            this.UpdateWalletContents(this._user.name);
+        }
     }
 
     _render() {
@@ -38,7 +42,9 @@ export default class MainApplication {
             API.Login(e.detail.key, e.detail.user).then((results) => {
                 this._storeUser(results)
                 this._setAuthentication(results);
+                this.UpdateWalletContents(this._user.name);
                 this._navbar.ReRenderDropdownContents(this._user);
+
             }).catch((err) => {
                 console.log(err);
             })
@@ -85,7 +91,6 @@ export default class MainApplication {
     }
 
     _setAuthentication(userDetails) {
-        console.log(userDetails)
         this._user.Username = userDetails.name;
         this._user.PublicKey = userDetails.publicKey;
         this._user.PrivateKey = userDetails.privateKey;
@@ -93,7 +98,6 @@ export default class MainApplication {
 
     _checkAuthentication() {
         let storedUser = localStorage.getItem('user');
-        console.log(storedUser)
         if (storedUser !== null) {
             let details = {
                 "name": storedUser,
@@ -118,6 +122,24 @@ export default class MainApplication {
     _renderComponentsListeners() {
         this._navbar.RenderListeners();
         this._creator.RenderEventListener();
+    }
+
+    UpdateWalletContents(user) {
+        this._wallet.ClearWallet();
+
+        API.GetWalletOwnedItemsContents(user).then((results) => {
+            this._wallet.RenderOwnedTokens(results);
+        })
+
+        API.GetUnissuedTokens(user).then((results) => {
+            this._wallet.RenderUnissuedTokens(results);
+        })
+    }
+
+    GetUnissuedTokens(user) {
+        API.GetUnissuedTokens(user).then((results) => {
+            console.log(results);
+        })
     }
 
     GetMarketplaceItems() {

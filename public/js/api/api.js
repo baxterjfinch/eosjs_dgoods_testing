@@ -10,6 +10,30 @@ export function GetMarketplace() {
     })
 }
 
+export function GetWalletOwnedItemsContents(user) {
+    return new Promise((resolve, reject) => {
+        $.get("http://127.0.0.1:3000/api/user/tokens", {user: user}, (data, code) => {
+            if(code === "success") {
+                resolve(data);
+            } else {
+                reject(code)
+            }
+        });
+    })
+}
+
+export function GetUnissuedTokens(user) {
+    return new Promise((resolve, reject) => {
+        $.get("http://127.0.0.1:3000/api/user/unissued_tokens", {user: user}, (data, code) => {
+            if(code === "success") {
+                resolve(data);
+            } else {
+                reject(code)
+            }
+        });
+    })
+}
+
 export function Login(key, user) {
     return new Promise((resolve, reject) => {
         $.ajax({
@@ -32,6 +56,7 @@ export function Login(key, user) {
 }
 
 export function CreateToken(details) {
+    console.log(details);
     return new Promise((resolve, reject) => {
         $.ajax({
             url: "http://127.0.0.1:3000/api/create_token",

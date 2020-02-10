@@ -14,20 +14,32 @@ const GetAccount = require("./account/get_account.js");
 const CreateAccount = require("./account/create_account.js");
 const AccountInfo = require("./account/account_info.js");
 
+/////////////////////////////
+//    Utility Functions    //
+/////////////////////////////
+
+const TokenDataUtilities = require("./utils/process_unissued_tokens_for_user");
+
 //////////////////////////////
 //     CHECK README FOR     //
 //       INSTRUCTIONS       //
 //////////////////////////////
 
-const contractAccount = "";
+const contractAccount = "mythicalgood";
 const contractPrivateKey = "";
 
-const secondAccount = "";
+const secondAccount = "bobbertester";
 const secondAccountPrivateKey = "";
 
-const buyerAccount = "";
-const buyerAccountPrivateKey = "";
+// const buyerAccount = "buyertester";
+// const buyerAccountPrivateKey = "";
 
+// ///////////////////////////
+//    NEED TO MAKE DYNAMIC  //
+//  FOR MULTIPLE CONTRACTS  //
+// ///////////////////////////
+const contractName = "mythicalgood";
+const contractSymbol = "DOOPS";
 
 // ///////////////////////////
 //    NODE CONNECTION INFO  //
@@ -61,8 +73,8 @@ app.post('/api/login', (req, res) => {
         res.send(response);
     }).catch((err) => {
         res.send(err);
-    })
-})
+    });
+});
 
 app.post('/api/create_token', (req, res) => {
     let testCreateFungibleTokenData = {
@@ -70,22 +82,40 @@ app.post('/api/create_token', (req, res) => {
         "rev_partner": contractAccount,
         "category": req.body.category,
         "token_name": req.body.name,
-        "fungible": req.body.fungible,
-        "burnable": req.body.burnable,
-        "sellable": req.body.sellable,
-        "transferable": req.body.transferable,
+        "fungible": req.body.fungible == 'true',
+        "burnable": req.body.burnable == 'true',
+        "sellable": req.body.sellable == 'true',
+        "transferable": req.body.transferable == 'true',
         "rev_split": req.body.split,
         "base_uri": req.body.uri,
         "max_issue_days": req.body.midays,
-        "max_supply": req.body.supply
+        "max_supply": req.body.supply + ` ${contractSymbol}`
     }
+    let transactionDetails = Dgoods.CreateToken(api, contractName, req.body.user, testCreateFungibleTokenData)
+    .then((response) => {
+        res.send(response);
+    }).catch((err) => {
+        res.send(err);
+    });
+});
 
-    Dgoods.CreateToken(api, req.body.user, testCreateFungibleTokenData).then((response) => {
+// GetAccountTokens(rpc, contract, account, table)
+app.get('/api/user/tokens', (req, res) => {
+    Dgoods.GetAccountTokens(rpc, contractName, req.query.user, 'accounts').then((response) => {
         res.send(response);
     }).catch((err) => {
         res.send(err);
     })
-})
+});
+
+app.get('/api/user/unissued_tokens', (req, res) => {
+    Dgoods.GetTableRows(rpc, 'dgood', req.query.user).then((response) => {
+        let processedTokens = TokenDataUtilities.GetUsersUnissuedTokens(req.query.user, response);
+        res.send(processedTokens);
+    }).catch((err) => {
+        res.send(err);
+    })
+});
 
 app.get('/api/marketplace', (req, res) => {
     Dgoods.GetTokensForSale(rpc, contractAccount, contractAccount).then((response) => {
@@ -93,59 +123,59 @@ app.get('/api/marketplace', (req, res) => {
     }).catch((err) => {
         res.send(err);
     });
-})
+});
 
 ///////////////////////////////
 //         TEST DATA         //
 ///////////////////////////////
 
-let testCreateTokenData = {
-  "issuer": contractAccount,
-  "rev_partner": contractAccount,
-  "category": "testcat",
-  "token_name": "testname",
-  "fungible": false,
-  "burnable": true,
-  "sellable": true,
-  "transferable": true,
-  "rev_split": 0,
-  "base_uri": "https://myticketingsite.com/concert1/ticket1/",
-  "max_issue_days": 0,
-  "max_supply": "1000 DOOPS"
-}
+// let testCreateTokenData = {
+//   "issuer": contractAccount,
+//   "rev_partner": contractAccount,
+//   "category": "testcat",
+//   "token_name": "testname",
+//   "fungible": false,
+//   "burnable": true,
+//   "sellable": true,
+//   "transferable": true,
+//   "rev_split": 0,
+//   "base_uri": "https://myticketingsite.com/concert1/ticket1/",
+//   "max_issue_days": 0,
+//   "max_supply": "1000 DOOPS"
+// }
+//
+// let testIssueTokenData = {
+//   "to": contractAccount,
+//   "category": testCreateTokenData.category,
+//   "token_name": testCreateTokenData.token_name,
+//   "quantity": "5 DOOPS",
+//   "relative_uri": "",
+//   "memo": "have some of mine!"
+// }
+//
+// let testCreateFungibleTokenData = {
+//   "issuer": null,
+//   "rev_partner": null,
+//   "category": null,
+//   "token_name": null,
+//   "fungible": null,
+//   "burnable": null,
+//   "sellable": null,
+//   "transferable": null,
+//   "rev_split": null,
+//   "base_uri": null,
+//   "max_issue_days": null,
+//   "max_supply": null
+// }
 
-let testIssueTokenData = {
-  "to": contractAccount,
-  "category": testCreateTokenData.category,
-  "token_name": testCreateTokenData.token_name,
-  "quantity": "5 DOOPS",
-  "relative_uri": "",
-  "memo": "have some of mine!"
-}
-
-let testCreateFungibleTokenData = {
-  "issuer": null,
-  "rev_partner": null,
-  "category": null,
-  "token_name": null,
-  "fungible": null,
-  "burnable": null,
-  "sellable": null,
-  "transferable": null,
-  "rev_split": null,
-  "base_uri": null,
-  "max_issue_days": null,
-  "max_supply": null
-}
-
-let testIssueFungibleTokenData = {
-  "to": secondAccount,
-  "category": testCreateFungibleTokenData.category,
-  "token_name": testCreateFungibleTokenData.token_name,
-  "quantity": "5000 DOOPS",
-  "relative_uri": "",
-  "memo": "have some of mine!"
-}
+// let testIssueFungibleTokenData = {
+//   "to": secondAccount,
+//   "category": testCreateFungibleTokenData.category,
+//   "token_name": testCreateFungibleTokenData.token_name,
+//   "quantity": "5000 DOOPS",
+//   "relative_uri": "",
+//   "memo": "have some of mine!"
+// }
 
 
 //////////////////////////////////
@@ -178,11 +208,6 @@ let testIssueFungibleTokenData = {
 // Utils.BuyEosRam(api, account, receiver);
 // GetAccount(rpc, account);
 // Dgoods.UpdatePermissions(rpc, api, account, publicKey);
-
-
-
-
-
 
 
 function DeployContract(api, {account, contractDir}) {

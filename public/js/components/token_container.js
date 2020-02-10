@@ -12,7 +12,6 @@ export default class TokenContainer {
     }
 
     RenderForSaleTokenItems(results) {
-        console.log(results, "From Tokencontainer")
         for (const result of results.rows) {
             this._pushForSaleItemToContainer(result);
         }
@@ -26,7 +25,6 @@ export default class TokenContainer {
 
 class BatchTokenCard {
     constructor(item) {
-        console.log(item);
         this.id = item.batch_id;
         this.dgood_ids = item.dgood_ids;
         this.seller = item.seller;
@@ -37,19 +35,17 @@ class BatchTokenCard {
 
     getBatchIds(batch) {
         let ids = "";
-
         for (const id of batch) {
             ids = ids + `${id} `
         }
-        console.log("IDS IN BATCH ", ids)
 
         return ids
     }
+    // <div class="token-card-image">${this.image}</div>
 
     Render() {
         return `
             <div id="item_${this.id}" class="token-card-mason">
-                <div class="token-card-image">${this.image}</div>
                 <div class="main-token-card-class token-cost">${this.cost}</div>
                 <div class="main-token-card-class batch-count">IDs In Sale: ${this.getBatchIds(this.dgood_ids)}</div>
                 <div class="main-token-card-class token-seller">${this.seller}</div>
