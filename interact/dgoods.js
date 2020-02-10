@@ -34,6 +34,7 @@ module.exports = {
             reverse: false,           // Optional: Get reversed data
             show_payer: false          // Optional: Show ram payer
           }).then((results) => {
+              console.log(results)
             resolve(results);
           }).catch((err) => {
             reject(err);

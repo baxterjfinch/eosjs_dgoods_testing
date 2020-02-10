@@ -1,3 +1,5 @@
+import SellTokenPanel from "./sell_token_panel.js";
+
 export default class Wallet {
     constructor() {
         this._state = false;
@@ -20,6 +22,9 @@ export default class Wallet {
         for(const token of tokens.rows) {
             let card = new WalletOwnedToken(token);
             document.getElementById('owned_tokens_container').innerHTML += card.Render();
+            setTimeout(() => {
+                card.RenderEventListener();
+            }, 100)
         }
     }
 
@@ -38,6 +43,7 @@ export default class Wallet {
 
     Render() {
         return `
+            <div id="sell_item_panel" class="sell-item-panel"></div>
             <div id="wallet_panel" class="wallet-panel">
                 <div class="owned-tokens-header">
                     <div class="token-header-name">Token Name</div>
@@ -78,15 +84,53 @@ class WalletToken {
 
 class WalletOwnedToken {
     constructor(token) {
+        console.log(token)
         this.name = token.token_name;
         this.category = token.category;
         this.category_name_id = token.category_name_id;
         this.amount = token.amount;
     }
 
+    RenderEventListener() {
+        document.getElementById(`${this.category_name_id}_${this.name}`).addEventListener('mouseenter', () => {
+            document.getElementById(`${this.name}_sell`).style.width = "100px";
+            document.getElementById(`${this.name}_sell`).style.visibility = "unset";
+        });
+
+        document.getElementById(`${this.category_name_id}_${this.name}`).addEventListener('mouseleave', () => {
+            document.getElementById(`${this.name}_sell`).style.width = "0px";
+            document.getElementById(`${this.name}_sell`).style.visibility = "hidden";
+        });
+
+        document.getElementById(`${this.name}_sell`).addEventListener('click', () => {
+            this.sellPanel = new SellTokenPanel('sell_item_panel', this.name);
+            this.sellPanel.Render();
+
+            const outsideClickListener = event => {
+                console.log(this._dom)
+                if (!document.getElementById('sell_item_panel').contains(event.target) && event.toElement.id !== `${this.name}_sell`) { // or use: event.target.closest(selector) === null
+                    // console.log("closing")
+                    console.log("closing")
+                    // document.getElementById('login_panel').style.top = "-217px";
+                    // this._login_panel_state = false;
+                    removeClickListener();
+
+                }
+            };
+
+            const removeClickListener = () => {
+                document.removeEventListener('click', outsideClickListener)
+                this.sellPanel.Destroy();
+            };
+
+            document.addEventListener('click', outsideClickListener);
+        })
+    }
+
     Render() {
         return `
             <div id="${this.category_name_id}_${this.name}" class="owned-wallet-token-item">
+                <div id="${this.name}_sell" class="sell-token">Sell</div>
                 <div class="wallet-token-name owned-item">${this.name}</div>
                 <div class="wallet-token-category owned-item">${this.category}</div>
                 <div class="wallet-token-amount owned-item">${this.amount}</div>

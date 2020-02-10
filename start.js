@@ -190,10 +190,10 @@ app.get('/api/marketplace', (req, res) => {
 // Dgoods.CreateToken(api, account, testCreateFungibleTokenData);
 // Dgoods.IssueToken(api, account, testIssueTokenData);
 // Dgoods.GetAllDgoodTables(rpc, account, 'dgood');
-// Dgoods.GetTableRows(rpc, 'dgood', account);
-// Dgoods.GetCatagoryTable(rpc, account, testCreateFungibleTokenData.category, 'dgoodstats');
+// Dgoods.GetTableRows(rpc, 'dgoodstats', contractAccount);
+Dgoods.GetCatagoryTable(rpc, contractAccount, 'testcat', 'dgoodstats');
 // Dgoods.GetCatagoryTable(rpc, account, testIssueTokenData.category, 'dgoodstats');
-// Dgoods.GetAccountTokens(rpc, contractAccount, secondAccount, 'accounts');
+Dgoods.GetAccountTokens(rpc, contractAccount, secondAccount, 'accounts');
 // Dgoods.TransferNFT(api, account, secondAccount, [35, 36], "memo test");
 // Dgoods.TransferFT(api, account, secondAccount, buyerAccount, testIssueFungibleTokenData.category, testIssueFungibleTokenData.token_name, "100 DOOPS", "memo test");
 // Dgoods.BurnNFTTokens(api, account, secondAccount, [5])

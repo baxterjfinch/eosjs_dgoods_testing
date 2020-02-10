@@ -49,7 +49,7 @@ export default class Navbar {
                 console.log("closing")
                 document.getElementById('login_panel').style.top = "-217px";
                 this._login_panel_state = false;
-                removeClickListener;
+                removeClickListener();
             }
         }
 
