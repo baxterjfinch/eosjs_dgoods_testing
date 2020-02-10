@@ -30,14 +30,14 @@ module.exports = {
             code: account,      // Contract that we target
             scope: account,         // Account that owns the data
             table: table,        // Table name
-            limit: 100,                // Maximum number of rows that we want to get
+            limit: 1000,                // Maximum number of rows that we want to get
             reverse: false,           // Optional: Get reversed data
             show_payer: false          // Optional: Show ram payer
           }).then((results) => {
               console.log(results)
-            resolve(results);
+              resolve(results);
           }).catch((err) => {
-            reject(err);
+              reject(err);
           });
       })
   },
@@ -52,26 +52,29 @@ module.exports = {
       reverse: false,           // Optional: Get reversed data
       show_payer: false          // Optional: Show ram payer
     }).then((results) => {
-      console.log(results);
+        console.log(results);
     }).catch((err) => {
-      console.log(err);
+        console.log(err);
     });
   },
 
   GetAllDgoodTables(rpc, account, table) {
-    rpc.get_table_rows({
-      json: true,               // Get the response as json
-      code: account,      // Contract that we target
-      scope: account,         // Account that owns the data
-      table: table,        // Table name
-      limit: 50,                // Maximum number of rows that we want to get
-      reverse: false,           // Optional: Get reversed data
-      show_payer: false          // Optional: Show ram payer
-    }).then((results) => {
-      console.log(results);
-    }).catch((err) => {
-      console.log(err);
-    });
+      return new Promise((resolve, reject) => {
+          rpc.get_table_rows({
+            json: true,               // Get the response as json
+            code: account,      // Contract that we target
+            scope: account,         // Account that owns the data
+            table: table,        // Table name
+            limit: 5000,                // Maximum number of rows that we want to get
+            reverse: false,           // Optional: Get reversed data
+            show_payer: false          // Optional: Show ram payer
+          }).then((results) => {
+            resolve(results);
+          }).catch((err) => {
+            reject(err);
+          });
+      })
+
   },
 
   async CreateToken(api, contract, account, data) {
@@ -90,11 +93,11 @@ module.exports = {
           blocksBehind: 3,
           expireSeconds: 30,
         })
-        console.log("Trying transaction")
+        console.log("Trying transaction: ")
         console.log(result)
         return result
     } catch(e) {
-        console.log("transaction failed")
+        console.log("Transaction failed: ")
         console.log(e)
         return e
     }
@@ -340,7 +343,7 @@ module.exports = {
             code: contract,      // Contract that we target
             scope: account,         // Account that owns the data
             table: table,        // Table name
-            limit: 100,                // Maximum number of rows that we want to get
+            limit: 1000,                // Maximum number of rows that we want to get
             reverse: false,           // Optional: Get reversed data
             show_payer: false          // Optional: Show ram payer
           }).then((results) => {

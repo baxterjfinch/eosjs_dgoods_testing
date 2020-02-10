@@ -10,7 +10,7 @@ export default class SellTokenPanel {
             <div id="sell_token_slider" class="sell-token-slider">
                 <div class="sell-token-header">Selling: </div><div class="sell-token-info">${this.name}</div>
                 <input class="sell-token-price" placeholder="Set A Price"></input>
-                <div id="submit_sell_order" class="submit-sell-button">Submit Sale Order</div>
+                <div id="submit_sell_order" class="submit-sell-button">Submit Sell Order</div>
             </div>
         `;
         document.getElementById('sell_token_slider').style.left = "-393px";

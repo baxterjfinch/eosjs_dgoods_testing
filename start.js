@@ -13,11 +13,6 @@ const Utils = require ("./utils/utilities.js");
 const GetAccount = require("./account/get_account.js");
 const CreateAccount = require("./account/create_account.js");
 const AccountInfo = require("./account/account_info.js");
-
-/////////////////////////////
-//    Utility Functions    //
-/////////////////////////////
-
 const TokenDataUtilities = require("./utils/process_unissued_tokens_for_user");
 
 //////////////////////////////
@@ -31,13 +26,14 @@ const contractPrivateKey = "";
 const secondAccount = "bobbertester";
 const secondAccountPrivateKey = "";
 
-// const buyerAccount = "buyertester";
-// const buyerAccountPrivateKey = "";
+const buyerAccount = "buyertester";
+const buyerAccountPrivateKey = "";
 
 // ///////////////////////////
 //    NEED TO MAKE DYNAMIC  //
 //  FOR MULTIPLE CONTRACTS  //
 // ///////////////////////////
+
 const contractName = "mythicalgood";
 const contractSymbol = "DOOPS";
 
@@ -49,7 +45,6 @@ const contractSymbol = "DOOPS";
 const signatureProvider = new JsSignatureProvider([contractPrivateKey]);
 const rpc = new JsonRpc('http://localhost:8888', { fetch });
 const api = new Api({ rpc, signatureProvider, textDecoder: new TextDecoder(), textEncoder: new TextEncoder() });
-
 
 ///////////////////////////////
 //          EXPRESS          //
@@ -109,7 +104,7 @@ app.get('/api/user/tokens', (req, res) => {
 });
 
 app.get('/api/user/unissued_tokens', (req, res) => {
-    Dgoods.GetTableRows(rpc, 'dgood', req.query.user).then((response) => {
+    Dgoods.GetAllDgoodTables(rpc, contractAccount, 'dgood').then((response) => {
         let processedTokens = TokenDataUtilities.GetUsersUnissuedTokens(req.query.user, response);
         res.send(processedTokens);
     }).catch((err) => {
@@ -144,14 +139,14 @@ app.get('/api/marketplace', (req, res) => {
 //   "max_supply": "1000 DOOPS"
 // }
 //
-// let testIssueTokenData = {
-//   "to": contractAccount,
-//   "category": testCreateTokenData.category,
-//   "token_name": testCreateTokenData.token_name,
-//   "quantity": "5 DOOPS",
-//   "relative_uri": "",
-//   "memo": "have some of mine!"
-// }
+let testIssueTokenData = {
+  "to": contractAccount,
+  "category": "yoopcat",
+  "token_name": "toop",
+  "quantity": "654322 DOOPS",
+  "relative_uri": "",
+  "memo": "have some of mine!"
+}
 //
 // let testCreateFungibleTokenData = {
 //   "issuer": null,
@@ -188,12 +183,12 @@ app.get('/api/marketplace', (req, res) => {
 
 // Dgoods.SetConfig(api, account, "DOOPS", "1.0");
 // Dgoods.CreateToken(api, account, testCreateFungibleTokenData);
-// Dgoods.IssueToken(api, account, testIssueTokenData);
-// Dgoods.GetAllDgoodTables(rpc, account, 'dgood');
+// Dgoods.IssueToken(api, contractAccount, testIssueTokenData);
+Dgoods.GetAllDgoodTables(rpc, contractAccount, 'dgood');
 // Dgoods.GetTableRows(rpc, 'dgoodstats', contractAccount);
 // Dgoods.GetCatagoryTable(rpc, contractAccount, 'testcat', 'dgoodstats');
 // Dgoods.GetCatagoryTable(rpc, account, testIssueTokenData.category, 'dgoodstats');
-// Dgoods.GetAccountTokens(rpc, contractAccount, secondAccount, 'accounts');
+// Dgoods.GetAccountTokens(rpc, contractAccount, contractAccount, 'accounts');
 // Dgoods.TransferNFT(api, account, secondAccount, [35, 36], "memo test");
 // Dgoods.TransferFT(api, account, secondAccount, buyerAccount, testIssueFungibleTokenData.category, testIssueFungibleTokenData.token_name, "100 DOOPS", "memo test");
 // Dgoods.BurnNFTTokens(api, account, secondAccount, [5])

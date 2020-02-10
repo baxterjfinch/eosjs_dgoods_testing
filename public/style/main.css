@@ -82,6 +82,7 @@ body {
 
 .nav-buttons:hover {
     color: white;
+    background-color: #2e4b6e;
 }
 
 .market-button {
@@ -474,6 +475,11 @@ body {
     margin-left: calc(50% - 200px);
     border-bottom: 3px solid #2e4b6e;
     margin-bottom: 25px;
+}
+
+.unissued-tokens-panel {
+    overflow-y: auto;
+    height: calc(100% - 368px);
 }
 
 /* width */
