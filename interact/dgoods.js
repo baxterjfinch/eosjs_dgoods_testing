@@ -280,7 +280,7 @@ module.exports = {
             code: contract,      // Contract that we target
             scope: scope,         // Account that owns the data
             table: 'asks',        // Table name
-            limit: 10,                // Maximum number of rows that we want to get
+            limit: 1000,                // Maximum number of rows that we want to get
             reverse: false,           // Optional: Get reversed data
             show_payer: false          // Optional: Show ram payer
           }).then((results) => {

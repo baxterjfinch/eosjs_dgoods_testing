@@ -6,6 +6,7 @@ export default class TokenContainer {
 
     Render() {
         return `
+            <div class="marketplace-header">Marketplace</div>
             <div id="token_container_main" class="token-container-mason">
             </div>
         `;

@@ -191,15 +191,15 @@ app.get('/api/marketplace', (req, res) => {
 // Dgoods.IssueToken(api, account, testIssueTokenData);
 // Dgoods.GetAllDgoodTables(rpc, account, 'dgood');
 // Dgoods.GetTableRows(rpc, 'dgoodstats', contractAccount);
-Dgoods.GetCatagoryTable(rpc, contractAccount, 'testcat', 'dgoodstats');
+// Dgoods.GetCatagoryTable(rpc, contractAccount, 'testcat', 'dgoodstats');
 // Dgoods.GetCatagoryTable(rpc, account, testIssueTokenData.category, 'dgoodstats');
-Dgoods.GetAccountTokens(rpc, contractAccount, secondAccount, 'accounts');
+// Dgoods.GetAccountTokens(rpc, contractAccount, secondAccount, 'accounts');
 // Dgoods.TransferNFT(api, account, secondAccount, [35, 36], "memo test");
 // Dgoods.TransferFT(api, account, secondAccount, buyerAccount, testIssueFungibleTokenData.category, testIssueFungibleTokenData.token_name, "100 DOOPS", "memo test");
 // Dgoods.BurnNFTTokens(api, account, secondAccount, [5])
 // Dgoods.BurnFTTokens(api, account, secondAccount, 3, "25 DOOPS")
 // Dgoods.CancelNFTSale(api, account, secondAccount, 5);
-// Dgoods.SubmitTokenForSale(api, account, secondAccount, [15], "1.0000 EOS");
+// Dgoods.SubmitTokenForSale(api, contractAccount, contractAccount, [39], "473.0050 EOS");
 // Dgoods.GetTokensForSale(rpc, account, account);
 // Dgoods.BuyTokenForSale(api, account, buyerAccount, 15);
 // Utils.GetContract(api, account);
