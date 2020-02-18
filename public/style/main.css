@@ -32,10 +32,10 @@ body {
 }
 
 #navbar_container {
-    position: sticky;
     width: 100%;
     z-index: 1000;
     top: 0;
+    height: 50px;
 }
 
 #creator_container {
@@ -60,9 +60,24 @@ body {
 
 .navbar-main {
     width: 100%;
-    height: 60px;
+    height: 100%;
+    background-color: #2e3844;
     position: relative;
 }
+
+.action-dropdown-button {
+    padding-right: 20px;
+    color: white;
+}
+
+.action-dropdown-button:hover {
+    color: white;
+}
+
+.action-dropdown-button:focus {
+    outline: none;
+}
+
 
 .nav-buttons {
     right: 0;
@@ -152,12 +167,13 @@ body {
 .login-panel {
     position: absolute;
     transition: .2s;
-    width: 600px;
-    height: 263px;
-    padding-top: 100px;
+    width: 500px;
+    height: fit-content;
+    padding: 30px;
     top: -217px;
-    background-color: #2085d6e0;
-    left: calc(50% - 300px);
+    background-color: #2e3843f0;
+    right: 0;
+    margin-top: -5px;
     z-index: 1;
 }
 
@@ -168,12 +184,15 @@ body {
 .login-button-submit {
     color: white;
     font-weight: 900;
-    background-color: #293852cc;
     border: none;
+    width: 50%;
+    height: 40px;
+    margin-left: 25%;
+    background-color: #448fd5;
+
 }
 .input-login-group {
-    width: calc(100% - 50px);
-    padding-left: 50px;
+    width: 100%;
 }
 
 .logout-button {
@@ -187,38 +206,38 @@ body {
 }
 
 .token-container-main {
-    width: calc(100% - 400px);
+    width: 100%;
     background-color: transparent;
-    height: 100%;
-    margin-left: 200px;
+    height: calc(100% - 50px);
     position: absolute;
     display: inline-block;
-    margin-right: 200px;
-    top: 0;
+    top: 50px;
     right: 0;
     text-align: center;
 }
 
 .creator-panel {
-    background-color: #293852eb;
-    width: calc(100% - 7px);
-    height: calc(100% - 75px);
+    width: calc(100% - 600px);
     overflow-y: auto;
-    visibility: hidden;
     transition: .2s;
-    box-shadow: 1px 1px 4px 0px #214167;
+    padding-top: 0;
+    position: relative;
+    margin: 300px;
+    padding-bottom: 0;
+    margin-bottom: 0;
+    margin-top: 0;
+    height: 100%;
 }
 
 .wallet-panel {
-    background-color: #293852eb;
-    width: calc(100% - 7px);
+    width: calc(100% - 300px);
     height: 100%;
     float: right;
-    box-shadow: 1px 1px 4px 0px #214167;
 }
 
 .token-container-mason {
-    height: calc(100% - 197px);
+    height: calc(100%);
+    padding-left: 300px;
     overflow-y: auto;
     background-color: transparent;
 }
@@ -229,9 +248,32 @@ body {
     width: calc(25% - 34px);
     height: auto;
     display: inline-block;
+    position: relative;
     margin: 15px;
+    transition: .4s;
     border-bottom: 7px solid #4490d5;
     border-left: 7px solid #2e4b6e;
+}
+
+.owned-items-container {
+    width: calc(50% - 30px);
+    height: calc(100% - 30px);
+    margin: 15px;
+    display: inline-block;
+    overflow-y: auto;
+    float: left;
+    box-shadow: 0px 1px 4px 0px #214167;
+
+}
+
+.unissued-items-container {
+    width: calc(50% - 30px);
+    height: calc(100% - 30px);
+    margin: 15px;
+    display: inline-block;
+    overflow-y: auto;
+    box-shadow: 0px 1px 4px 0px #214167;
+    float: right;
 }
 
 .token-card-mason:hover {
@@ -273,38 +315,48 @@ body {
 
 .token-form-class {
     padding: 50px;
+    text-align: left;
     padding-top: 0;
+    padding-bottom: 0;
 }
 
 .token-creator-title {
     padding: 15px;
     padding-left: 0px;
-    color: white;
+    color: #2e3843;
     font-weight: 900;
     margin: 0px;
 }
 
+.creator-inputs {
+    height: 50px;
+}
+
 .submit-create-token {
-    position: absolute;
-    bottom: 0;
-    width: 100%;
+    width: calc(100% - 100px);
     left: 0;
     border-radius: 0;
-    height: 75px;
-    background-color: transparent;
+    float: right;
+    height: 50px;
     font-weight: 900;
     font-size: 20px;
+    border: none;
+    margin: 50px;
+    color: white;
+    position: sticky;
+    background-color: #2e3843;
+    bottom: 0;
+    margin-bottom: 0;
 }
 
 .token-boolean-group {
-    padding-top: 50px;
 }
 .token-booleans {
     position: relative;
     display: block;
     font-weight: 900;
     padding-left: 1.25rem;
-    color: white;
+    color: #2e3843;
 }
 
 .create-help-text {
@@ -322,6 +374,7 @@ body {
 
 .wallet-token-name {
     width: 25%;
+    float: left;
     font-size: 14px;
 }
 
@@ -334,36 +387,37 @@ body {
     width: 25%;
     font-size: 14px;
     text-align: right;
+    float: right;
     right: 15px;
-    position: absolute;
-
 }
 .owned-item {
     display: inline-block;
-    color: white;
+    color: #2e4b6e;
     font-weight: 900;
 }
 
 .owned-tokens-panel {
-    min-height: 200px;
+    height: calc(100% - 54px);
+    overflow-y: auto;
 }
 
 .owned-tokens-header {
     padding: 15px;
     font-weight: 900;
-    background-color: #4593d9;
+    background-color: #2e3843;
     color: white;
 }
 
 .unissued-tokens-header {
     padding: 15px;
     font-weight: 900;
-    background-color: #4593d9;
+    background-color: #2e3843;
     color: white;
 }
 .token-header-name {
     width: 25%;
     min-width: 100px;
+    float: left;
     display: inline-block;
 }
 
@@ -375,7 +429,7 @@ body {
 }
 
 .token-header-amount {
-    min-width: 100px;
+    width: 25%;
     float: right;
     text-align: right;
     display: inline-block;
@@ -408,17 +462,16 @@ body {
 }
 
 .sell-item-panel {
-    position: absolute;
-
 }
 
 .sell-token-slider {
     width: 0px;
     left: 0px;
-    background-color: #4593d9;
+    background-color: #2e3843;
     height: 200px;
     padding: 40px;
     z-index: 1000;
+    box-shadow: 0px 1px 4px 0px #214167;
     position: absolute;
     transition: .2s;
     padding-top: 25px;
@@ -431,7 +484,7 @@ body {
     text-align: center;
     left: 0;
     padding: 20px;
-    background-color: #3573ab;
+    background-color: #4f5c69;
     cursor: pointer;
     font-weight: 900;
     color: white;
@@ -478,9 +531,102 @@ body {
 }
 
 .unissued-tokens-panel {
+    height: calc(100% - 54px);
     overflow-y: auto;
-    height: calc(100% - 368px);
 }
+
+.owned-marketplace-identifier {
+    position: absolute;
+    right: 15px;
+    font-size: 20px;
+    top: 10px;
+    color: gold;
+    transition: .2s;
+}
+
+.owned-marketplace-identifier:hover {
+    transform: rotate(72deg);
+    color: #448fd5;
+}
+
+.owned-marketplace-identifier:focus {
+    outline: none;
+}
+
+.left-sidebar {
+    width: 300px;
+    background-color: transparent;
+    display: inline-block;
+    height: 100%;
+    position: absolute;
+}
+
+.action-dropdown {
+    float: right;
+    height: 100%;
+}
+
+.action-dropdown-button {
+    height: 100%;
+}
+
+.buy-token-button {
+    width: 100px;
+    height: 50px;
+    border: none;
+    margin: 15px;
+    background-color: #2e4b6e;
+    font-weight: 900;
+    transition: .2s;
+    color: white;
+}
+
+.buy-token-button:hover {
+    background-color: #448fd5;
+}
+
+.notification-center {
+    position: absolute;
+    width: fit-content;
+    height: auto;
+    bottom: 0;
+    z-index: 100000;
+}
+
+.bought-token-notification {
+    padding: 15px;
+    background-color: #5faef1;
+    margin: 5px;
+    box-shadow: 0px 0px 5px 1px #2938522b;
+}
+
+.token-purchased-tx {
+    color: white;
+    font-weight: 900;
+}
+
+.token-purchased-tx-content {
+    color: white;
+    font-weight: 500;
+}
+
+.token-purchased-header {
+    color: white;
+    font-weight: 900;
+}
+
+@media only screen and (max-width: 1450px) {
+  .token-card-mason {
+    width: calc(100% - 34px);
+  }
+
+  .buy-token-button {
+      position: absolute;
+      right: 15px;
+      bottom: 15px;
+  }
+}
+
 
 /* width */
 ::-webkit-scrollbar {

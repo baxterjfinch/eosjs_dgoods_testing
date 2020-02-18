@@ -9,6 +9,7 @@
   "author": "",
   "license": "ISC",
   "dependencies": {
+    "animate.css": "^3.7.2",
     "body-parser": "^1.19.0",
     "eosjs": "^20.0.3",
     "eoslime": "1.0.2",

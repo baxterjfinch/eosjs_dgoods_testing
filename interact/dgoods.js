@@ -287,6 +287,7 @@ module.exports = {
             reverse: false,           // Optional: Get reversed data
             show_payer: false          // Optional: Show ram payer
           }).then((results) => {
+              console.log(results)
             resolve(results);
           }).catch((err) => {
             reject(err);
@@ -294,30 +295,33 @@ module.exports = {
       })
   },
 
-  BuyTokenForSale(api, contract, buyer, id) {
-    api.transact({
-      actions: [{
-        account: 'eosio.token',
-        name: 'transfer',
-        authorization: [{
-          actor: buyer,
-          permission: 'active',
-        }],
-        data: {
-          "from": buyer,
-          "to": contract,
-          "quantity": "1.0000 EOS",
-          "memo": `${id},${buyer}`
-        },
-      }]
-    }, {
-      blocksBehind: 3,
-      expireSeconds: 30,
-    }).then((results) => {
-      console.log(results);
-    }).catch((err) => {
-      console.log(err);
-    });
+  BuyTokenForSale(api, contract, buyer, id, price) {
+      return new Promise((resolve, reject) => {
+          api.transact({
+            actions: [{
+              account: 'eosio.token',
+              name: 'transfer',
+              authorization: [{
+                actor: buyer,
+                permission: 'active',
+              }],
+              data: {
+                "from": buyer,
+                "to": contract,
+                "quantity": price,
+                "memo": `${id},${buyer}`
+              },
+            }]
+          }, {
+            blocksBehind: 3,
+            expireSeconds: 30,
+          }).then((results) => {
+            resolve(results);
+          }).catch((err) => {
+              console.log(err)
+            reject(err);
+          });
+      })
   },
 
   GetTableByCategory(rpc, account, category) {

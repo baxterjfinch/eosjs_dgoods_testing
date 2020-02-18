@@ -21,13 +21,13 @@ const TokenDataUtilities = require("./utils/process_unissued_tokens_for_user");
 //////////////////////////////
 
 const contractAccount = "mythicalgood";
-const contractPrivateKey = "";
+const contractPrivateKey = "5HtgZVowSQXrq3p2oySeazHk5Zc6Mn1gqAJVgfz7ngfyrVzWqKw";
 
 const secondAccount = "bobbertester";
-const secondAccountPrivateKey = "";
+const secondAccountPrivateKey = "5Hu51t2XstS4S1kzZwv7fYx7rfMTdc3t6xcPCA6mvRCW6jmyxVc";
 
 const buyerAccount = "buyertester";
-const buyerAccountPrivateKey = "";
+const buyerAccountPrivateKey = "5JeGvfyapHPz2PWwtUzsH7Yjr6VppWJEfE1TKcXPCX5zignxEB9";
 
 // ///////////////////////////
 //    NEED TO MAKE DYNAMIC  //
@@ -42,9 +42,11 @@ const contractSymbol = "DOOPS";
 //       INFORMATION        //
 // ///////////////////////////
 
-const signatureProvider = new JsSignatureProvider([contractPrivateKey]);
 const rpc = new JsonRpc('http://localhost:8888', { fetch });
-const api = new Api({ rpc, signatureProvider, textDecoder: new TextDecoder(), textEncoder: new TextEncoder() });
+let signatureProvider;
+let api;
+// let signatureProvider = new JsSignatureProvider([secondAccountPrivateKey]);
+// let api = new Api({ rpc, signatureProvider, textDecoder: new TextDecoder(), textEncoder: new TextEncoder() });
 
 ///////////////////////////////
 //          EXPRESS          //
@@ -64,6 +66,9 @@ app.get('/', (req, res) => {
 })
 
 app.post('/api/login', (req, res) => {
+     signatureProvider = new JsSignatureProvider([req.body.key]);
+     api = new Api({ rpc, signatureProvider, textDecoder: new TextDecoder(), textEncoder: new TextEncoder() });
+
     AccountInfo.Login(eoslime, req.body.user, req.body.key).then((response) => {
         res.send(response);
     }).catch((err) => {
@@ -120,6 +125,23 @@ app.get('/api/marketplace', (req, res) => {
     });
 });
 
+app.post('/api/buy_token', (req, res) => {
+    let token = req.body.id;
+    let buyer = req.body.buyer;
+    let pkey = req.body.pkey;
+    let price = req.body.price;
+    let seller = req.body.seller;
+
+    let signatureProvider = new JsSignatureProvider([pkey]);
+    let rpc = new JsonRpc('http://localhost:8888', { fetch });
+    let api = new Api({ rpc, signatureProvider, textDecoder: new TextDecoder(), textEncoder: new TextEncoder() });
+
+    Dgoods.BuyTokenForSale(api, seller, buyer, token, price).then((response) => {
+        res.send(response);
+    }).catch((err) => {
+        res.send(err);
+    });
+})
 ///////////////////////////////
 //         TEST DATA         //
 ///////////////////////////////
@@ -184,7 +206,7 @@ let testIssueTokenData = {
 // Dgoods.SetConfig(api, account, "DOOPS", "1.0");
 // Dgoods.CreateToken(api, account, testCreateFungibleTokenData);
 // Dgoods.IssueToken(api, contractAccount, testIssueTokenData);
-Dgoods.GetAllDgoodTables(rpc, contractAccount, 'dgood');
+// Dgoods.GetAllDgoodTables(rpc, contractAccount, 'dgood');
 // Dgoods.GetTableRows(rpc, 'dgoodstats', contractAccount);
 // Dgoods.GetCatagoryTable(rpc, contractAccount, 'testcat', 'dgoodstats');
 // Dgoods.GetCatagoryTable(rpc, account, testIssueTokenData.category, 'dgoodstats');
@@ -193,8 +215,26 @@ Dgoods.GetAllDgoodTables(rpc, contractAccount, 'dgood');
 // Dgoods.TransferFT(api, account, secondAccount, buyerAccount, testIssueFungibleTokenData.category, testIssueFungibleTokenData.token_name, "100 DOOPS", "memo test");
 // Dgoods.BurnNFTTokens(api, account, secondAccount, [5])
 // Dgoods.BurnFTTokens(api, account, secondAccount, 3, "25 DOOPS")
-// Dgoods.CancelNFTSale(api, account, secondAccount, 5);
-// Dgoods.SubmitTokenForSale(api, contractAccount, contractAccount, [39], "473.0050 EOS");
+
+// Dgoods.SubmitTokenForSale(api, contractAccount, secondAccount, [26], "1.0250 EOS");
+// Dgoods.SubmitTokenForSale(api, contractAccount, secondAccount, [22], "1.3050 EOS");
+// Dgoods.SubmitTokenForSale(api, contractAccount, secondAccount, [26], "0.0050 EOS");
+// Dgoods.SubmitTokenForSale(api, contractAccount, secondAccount, [27], "3.0050 EOS");
+// Dgoods.SubmitTokenForSale(api, contractAccount, secondAccount, [28], "1.3450 EOS");
+// Dgoods.SubmitTokenForSale(api, contractAccount, secondAccount, [29], "1.0050 EOS");
+// Dgoods.SubmitTokenForSale(api, contractAccount, secondAccount, [34], "1.0050 EOS");
+// Dgoods.SubmitTokenForSale(api, contractAccount, secondAccount, [35], "1.0050 EOS");
+// Dgoods.SubmitTokenForSale(api, contractAccount, secondAccount, [36], "1.0050 EOS");
+// Dgoods.SubmitTokenForSale(api, contractAccount, secondAccount, [38], "1.0050 EOS");
+//
+// Dgoods.SubmitTokenForSale(api, contractAccount, secondAccount, [39, 40], "1.0450 EOS");
+// Dgoods.SubmitTokenForSale(api, contractAccount, secondAccount, [41, 42, 43, 44, 45], "2.0500 EOS");
+// Dgoods.SubmitTokenForSale(api, contractAccount, secondAccount, [47], "1.5050 EOS");
+// Dgoods.SubmitTokenForSale(api, contractAccount, secondAccount, [48], "1.4050 EOS");
+// Dgoods.SubmitTokenForSale(api, contractAccount, secondAccount, [49], "1.3050 EOS");
+// Dgoods.SubmitTokenForSale(api, contractAccount, secondAccount, [50, 51], "1.1050 EOS");
+
+// Dgoods.SubmitTokenForSale(api, contractAccount, contractAccount, [8], "1.0050 EOS");
 // Dgoods.GetTokensForSale(rpc, account, account);
 // Dgoods.BuyTokenForSale(api, account, buyerAccount, 15);
 // Utils.GetContract(api, account);

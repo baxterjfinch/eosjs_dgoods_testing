@@ -2,6 +2,7 @@ export function GetMarketplace() {
     return new Promise((resolve, reject) => {
         $.get("http://127.0.0.1:3000/api/marketplace", (data, code) => {
             if(code === "success") {
+                console.log(data)
                 resolve(data);
             } else {
                 reject(code)
@@ -44,10 +45,35 @@ export function Login(key, user) {
                 user: user
             }
         }).then((res) =>{
+            console.log(res)
             if (res.name) {
                 resolve(res);
             } else {
                 reject("account does not exist")
+            }
+        }).catch((err) => {
+            console.log(err)
+        })
+    })
+}
+
+export function BuyToken(pkey, buyer, id, price, seller) {
+    return new Promise((resolve, reject) => {
+        $.ajax({
+            url: "http://127.0.0.1:3000/api/buy_token",
+            type: "POST",
+            data: {
+                pkey: pkey,
+                buyer: buyer,
+                id: id,
+                price: price,
+                seller: seller
+            }
+        }).then((res) =>{
+            if (res.transaction_id) {
+                resolve(res);
+            } else {
+                reject("Purchase failed")
             }
         }).catch((err) => {
             console.log(err)

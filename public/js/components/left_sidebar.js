@@ -7,7 +7,7 @@ export default class LeftSidebar {
 
     Render() {
         return `
-            <div id="left_sidebar" class="left_sidebar">
+            <div class="left-sidebar">
 
             </div>
         `;

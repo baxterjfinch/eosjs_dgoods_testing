@@ -13,8 +13,11 @@ export default class SellTokenPanel {
                 <div id="submit_sell_order" class="submit-sell-button">Submit Sell Order</div>
             </div>
         `;
-        document.getElementById('sell_token_slider').style.left = "-393px";
+        document.getElementById('sell_token_slider').style.left = "calc(50% - 200px)";
         document.getElementById('sell_token_slider').style.width = "400px";
+        document.getElementById('sell_token_slider').style.height = "300px";
+        document.getElementById('sell_token_slider').style.top = "calc(50% - 150px)";
+        document.getElementById('sell_token_slider').style.boxShadow = "0px 1px 4px 0px #214167";
     }
 
     Destroy() {

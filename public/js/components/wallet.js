@@ -18,7 +18,6 @@ export default class Wallet {
     }
 
     RenderOwnedTokens(tokens) {
-        console.log(tokens);
         for(const token of tokens.rows) {
             let card = new WalletOwnedToken(token);
             document.getElementById('owned_tokens_container').innerHTML += card.Render();
@@ -29,7 +28,6 @@ export default class Wallet {
     }
 
     RenderUnissuedTokens(tokens) {
-        console.log(tokens)
         for(const token of tokens) {
             let card = new WalletToken(token);
             document.getElementById('unissued_tokens_container').innerHTML += card.Render();
@@ -45,17 +43,20 @@ export default class Wallet {
         return `
             <div id="sell_item_panel" class="sell-item-panel"></div>
             <div id="wallet_panel" class="wallet-panel">
-                <div class="owned-tokens-header">
-                    <div class="token-header-name">Token Name</div>
-                    <div class="token-header-category">Category</div>
-                    <div class="token-header-amount">Amount</div>
+                <div class="owned-items-container">
+                    <div class="owned-tokens-header">
+                        <div class="token-header-name">Token Name</div>
+                        <div class="token-header-category">Category</div>
+                        <div class="token-header-amount">Amount</div>
+                    </div>
+                    <div id="owned_tokens_container" class="owned-tokens-panel"></div>
                 </div>
-                <div id="owned_tokens_container" class="owned-tokens-panel"></div>
-
-                <div class="unissued-tokens-header">
-                    Unissued Tokens
+                <div class="unissued-items-container">
+                    <div class="unissued-tokens-header">
+                        Unissued Tokens
+                    </div>
+                    <div id="unissued_tokens_container" class="unissued-tokens-panel"></div>
                 </div>
-                <div id="unissued_tokens_container" class="unissued-tokens-panel"></div>
             </div>
         `
     }
@@ -76,7 +77,6 @@ class WalletToken {
             <div id="${this.serial_number}_${this.id}" class="owned-wallet-token-item">
                 <div class="wallet-token-name owned-item">${this.name}</div>
                 <div class="wallet-token-category owned-item">${this.category}</div>
-
             </div>
         `
     }
@@ -84,7 +84,6 @@ class WalletToken {
 
 class WalletOwnedToken {
     constructor(token) {
-        console.log(token)
         this.name = token.token_name;
         this.category = token.category;
         this.category_name_id = token.category_name_id;
@@ -107,7 +106,6 @@ class WalletOwnedToken {
             this.sellPanel.Render();
 
             const outsideClickListener = event => {
-                console.log(this._dom)
                 if (!document.getElementById('sell_item_panel').contains(event.target) && event.toElement.id !== `${this.name}_sell`) { // or use: event.target.closest(selector) === null
                     // console.log("closing")
                     console.log("closing")

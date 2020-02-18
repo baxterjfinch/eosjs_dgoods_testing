@@ -58,34 +58,34 @@ export default class Creator {
                 <form class="token-form-class">
                     <div class="form-group">
                         <label class="token-creator-title" for="tokenInputName">Token Name</label>
-                        <input id="create_token_name" type="text" class="form-control" id="tokenInputName" aria-describedby="tokenNameHelp" placeholder="Token Name">
+                        <input id="create_token_name" type="text" class="form-control creator-inputs" id="tokenInputName" aria-describedby="tokenNameHelp" placeholder="Token Name">
                     </div>
 
                     <div class="form-group">
                         <label class="token-creator-title" for="tokenInputSupply">Token Supply</label>
-                        <input id="create_token_supply" type="text" class="form-control" id="tokenInputSupply" aria-describedby="tokenSupplyHelp" placeholder="Token Supply">
+                        <input id="create_token_supply" type="text" class="form-control creator-inputs" id="tokenInputSupply" aria-describedby="tokenSupplyHelp" placeholder="Token Supply">
                     </div>
 
                     <div class="form-group">
                         <label class="token-creator-title" for="tokenInputCategory">Token Category</label>
-                        <input id="create_token_category" type="text" class="form-control" id="tokenInputCategory" aria-describedby="tokenCategoryHelp" placeholder="Token Category">
+                        <input id="create_token_category" type="text" class="form-control creator-inputs" id="tokenInputCategory" aria-describedby="tokenCategoryHelp" placeholder="Token Category">
                     </div>
 
                     <div class="form-group">
                         <label class="token-creator-title" for="tokenRevisionSplit">Token Revision Split</label>
-                        <input id="token_revision_split" type="text" class="form-control" id="tokenRevisionSplit" aria-describedby="tokenRevisionHelp" placeholder="Token Revision Split">
+                        <input id="token_revision_split" type="text" class="form-control creator-inputs" id="tokenRevisionSplit" aria-describedby="tokenRevisionHelp" placeholder="Token Revision Split">
                         <small id="tokenRevisionHelp" class="form-text create-help-text">We'll never share your email with anyone else.</small>
                     </div>
 
                     <div class="form-group">
                         <label class="token-creator-title" for="maximumIssueDays">Maximum Issue Days</label>
-                        <input id="maximum_issue_days" type="text" class="form-control" id="maximumIssueDays" aria-describedby="tokenDaysHelp" placeholder="Maximum Issue Days">
+                        <input id="maximum_issue_days" type="text" class="form-control creator-inputs" id="maximumIssueDays" aria-describedby="tokenDaysHelp" placeholder="Maximum Issue Days">
                         <small id="tokenDaysHelp" class="form-text create-help-text">Set as 0 for indefinite minting</small>
                     </div>
 
                     <div class="form-group">
                         <label class="token-creator-title" for="baseURI">Base URI</label>
-                        <input id="token_create_base_uri" type="text" class="form-control" id="baseURI" aria-describedby="tokenURIHelp" placeholder="Base URI">
+                        <input id="token_create_base_uri" type="text" class="form-control creator-inputs" id="baseURI" aria-describedby="tokenURIHelp" placeholder="Base URI">
                         <small id="tokenURIHelp" class="form-text create-help-text">We'll never share your email with anyone else.</small>
                     </div>
 
