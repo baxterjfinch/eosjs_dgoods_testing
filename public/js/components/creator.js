@@ -2,7 +2,6 @@ export default class Creator {
     constructor(selector, user) {
         this._state = false;
         this._user = user;
-        console.log(user.name)
     }
 
     TogglePanel() {
@@ -45,7 +44,8 @@ export default class Creator {
                   fungible : fungible,
                   burnable : burnable,
                   transferable : transferable,
-                  sellable : sellable
+                  sellable : sellable,
+                  pkey: this._user.privKey
                 }
             });
             document.dispatchEvent(event);

@@ -77,6 +77,12 @@ app.post('/api/login', (req, res) => {
 });
 
 app.post('/api/create_token', (req, res) => {
+    let pkey = req.body.pkey;
+    console.log(pkey)
+    let signatureProvider = new JsSignatureProvider([pkey]);
+    let rpc = new JsonRpc('http://localhost:8888', { fetch });
+    let api = new Api({ rpc, signatureProvider, textDecoder: new TextDecoder(), textEncoder: new TextEncoder() });
+
     let testCreateFungibleTokenData = {
         "issuer": req.body.user,
         "rev_partner": contractAccount,

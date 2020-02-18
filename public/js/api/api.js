@@ -82,7 +82,6 @@ export function BuyToken(pkey, buyer, id, price, seller) {
 }
 
 export function CreateToken(details) {
-    console.log(details);
     return new Promise((resolve, reject) => {
         $.ajax({
             url: "http://127.0.0.1:3000/api/create_token",

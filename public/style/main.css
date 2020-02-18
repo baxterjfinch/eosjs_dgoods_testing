@@ -600,6 +600,13 @@ body {
     box-shadow: 0px 0px 5px 1px #2938522b;
 }
 
+.create-token-notification {
+    padding: 15px;
+    background-color: #0fce99;
+    margin: 5px;
+    box-shadow: 0px 0px 5px 1px #2938522b;
+}
+
 .token-purchased-tx {
     color: white;
     font-weight: 900;

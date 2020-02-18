@@ -51,7 +51,7 @@ export default class MainApplication {
             API.BuyToken(e.detail.pkey, e.detail.buyer, e.detail.id, e.detail.price, e.detail.seller).then((results) => {
                 this._token_container.DestroyBoughtCard(e.detail.id);
                 console.log(results)
-                this._notification_center.PushBoughtTokenNotification(results.transaction_id)
+                this._notification_center.PushBoughtTokenNotification(results.transaction_id);
             }).catch((err) => {
                 console.log(err);
             })
@@ -59,8 +59,7 @@ export default class MainApplication {
 
         document.addEventListener('create_token', (e) => {
             API.CreateToken(e.detail).then((results) => {
-
-                console.log(results);
+                this._notification_center.PushCreateTokenNotification(results);
             }).catch((err) => {
                 console.log(err);
             })
