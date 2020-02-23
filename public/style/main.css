@@ -555,10 +555,10 @@ body {
 
 .left-sidebar {
     width: 300px;
-    background-color: transparent;
-    display: inline-block;
-    height: 100%;
+    height: calc(100% - 50px);
+    background-color: #4d5b6b;
     position: absolute;
+    left: 0;
 }
 
 .action-dropdown {

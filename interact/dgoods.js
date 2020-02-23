@@ -69,6 +69,7 @@ module.exports = {
             reverse: false,           // Optional: Get reversed data
             show_payer: false          // Optional: Show ram payer
           }).then((results) => {
+              console.log(results);
             resolve(results);
           }).catch((err) => {
             reject(err);
@@ -84,7 +85,7 @@ module.exports = {
             account: contract,
             name: 'create',
             authorization: [{
-              actor: account,
+              actor: contract,
               permission: 'active',
             }],
             data: data,
@@ -93,7 +94,7 @@ module.exports = {
           blocksBehind: 3,
           expireSeconds: 30,
         })
-        console.log("Trying transaction: ")
+        console.log("Trying Create: ")
         console.log(result)
         return result
     } catch(e) {
@@ -103,25 +104,30 @@ module.exports = {
     }
 },
 
-  IssueToken(api, account, data) {
-    api.transact({
-      actions: [{
-        account: account,
-        name: 'issue',
-        authorization: [{
-          actor: account,
-          permission: 'active',
-        }],
-        data: data,
-      }]
-    }, {
-      blocksBehind: 3,
-      expireSeconds: 30,
-    }).then((results) => {
-      console.log(results);
-    }).catch((err) => {
-      console.log(err);
-    });
+  async IssueToken(api, account, data) {
+      try {
+          const result = await api.transact({
+              actions: [{
+                account: account,
+                name: 'issue',
+                authorization: [{
+                  actor: account,
+                  permission: 'active',
+                }],
+                data: data,
+              }]
+            }, {
+              blocksBehind: 3,
+              expireSeconds: 30,
+            })
+            console.log("Trying Issuance: ")
+            console.log(result)
+            return result
+        } catch(e) {
+            console.log("Issuance Failed:")
+            console.log(e);
+            return e
+        }
   },
 
   BurnNFTTokens(api, contract, owner, ids) {

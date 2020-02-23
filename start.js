@@ -20,22 +20,22 @@ const TokenDataUtilities = require("./utils/process_unissued_tokens_for_user");
 //       INSTRUCTIONS       //
 //////////////////////////////
 
-const contractAccount = "mythicalgood";
-const contractPrivateKey = "5HtgZVowSQXrq3p2oySeazHk5Zc6Mn1gqAJVgfz7ngfyrVzWqKw";
+const contractAccount = "dgoods.token";
+const contractPrivateKey = "5KF2Wvq1bpBGK35RRDNuLWw2DT3PK4jBKdkou8qDcBnZzJmE9Eh";
 
-const secondAccount = "bobbertester";
-const secondAccountPrivateKey = "5Hu51t2XstS4S1kzZwv7fYx7rfMTdc3t6xcPCA6mvRCW6jmyxVc";
+const secondAccount = "test.account";
+const secondAccountPrivateKey = "5JwDmwUGL9yjzBK9dStD6Zy6bm92k6ZNJ1x7Wsa1LKTkP3tS2xY";
 
-const buyerAccount = "buyertester";
-const buyerAccountPrivateKey = "5JeGvfyapHPz2PWwtUzsH7Yjr6VppWJEfE1TKcXPCX5zignxEB9";
+const buyerAccount = "sell.account";
+const buyerAccountPrivateKey = "5J5z4zMCbf7fy1yTVahm3M7x8MQBPH6xBBkHmbAMWAzK5yLSDdQ";
 
 // ///////////////////////////
 //    NEED TO MAKE DYNAMIC  //
 //  FOR MULTIPLE CONTRACTS  //
 // ///////////////////////////
 
-const contractName = "mythicalgood";
-const contractSymbol = "DOOPS";
+const contractName = "dgoods.token";
+const contractSymbol = "DGDS";
 
 // ///////////////////////////
 //    NODE CONNECTION INFO  //
@@ -43,10 +43,10 @@ const contractSymbol = "DOOPS";
 // ///////////////////////////
 
 const rpc = new JsonRpc('http://localhost:8888', { fetch });
-let signatureProvider;
-let api;
-// let signatureProvider = new JsSignatureProvider([secondAccountPrivateKey]);
-// let api = new Api({ rpc, signatureProvider, textDecoder: new TextDecoder(), textEncoder: new TextEncoder() });
+// let signatureProvider;
+// let api;
+let signatureProvider = new JsSignatureProvider([contractPrivateKey]);
+let api = new Api({ rpc, signatureProvider, textDecoder: new TextDecoder(), textEncoder: new TextEncoder() });
 
 ///////////////////////////////
 //          EXPRESS          //
@@ -77,17 +77,17 @@ app.post('/api/login', (req, res) => {
 });
 
 app.post('/api/create_token', (req, res) => {
-    let pkey = req.body.pkey;
-    console.log(pkey)
+    // let pkey = req.body.pkey;
+    let pkey = contractPrivateKey;
     let signatureProvider = new JsSignatureProvider([pkey]);
     let rpc = new JsonRpc('http://localhost:8888', { fetch });
     let api = new Api({ rpc, signatureProvider, textDecoder: new TextDecoder(), textEncoder: new TextEncoder() });
 
     let testCreateFungibleTokenData = {
-        "issuer": req.body.user,
-        "rev_partner": contractAccount,
-        "category": req.body.category,
-        "token_name": req.body.name,
+        "issuer": contractAccount,
+        "rev_partner": req.body.user,
+        "category": req.body.category.toLowerCase(),
+        "token_name": req.body.name.toLowerCase(),
         "fungible": req.body.fungible == 'true',
         "burnable": req.body.burnable == 'true',
         "sellable": req.body.sellable == 'true',
@@ -97,9 +97,22 @@ app.post('/api/create_token', (req, res) => {
         "max_issue_days": req.body.midays,
         "max_supply": req.body.supply + ` ${contractSymbol}`
     }
-    let transactionDetails = Dgoods.CreateToken(api, contractName, req.body.user, testCreateFungibleTokenData)
+    let transactionDetails = Dgoods.CreateToken(api, contractAccount, req.body.user, testCreateFungibleTokenData)
     .then((response) => {
-        res.send(response);
+        
+        let testIssueTokenData = {
+          "to": req.body.user,
+          "category": req.body.category.toLowerCase(),
+          "token_name": req.body.name.toLowerCase(),
+          "quantity": `${req.body.supply} ${contractSymbol}`,
+          "relative_uri": "",
+          "memo": "issuing new tokens"
+        }
+
+        return Dgoods.IssueToken(api, contractAccount, testIssueTokenData);
+
+    }).then((res) => {
+        res.send(res);
     }).catch((err) => {
         res.send(err);
     });
@@ -167,14 +180,14 @@ app.post('/api/buy_token', (req, res) => {
 //   "max_supply": "1000 DOOPS"
 // }
 //
-let testIssueTokenData = {
-  "to": contractAccount,
-  "category": "yoopcat",
-  "token_name": "toop",
-  "quantity": "654322 DOOPS",
-  "relative_uri": "",
-  "memo": "have some of mine!"
-}
+// let testIssueTokenData = {
+//   "to": secondAccount,
+//   "category": ".est.at",
+//   "token_name": ".est.ame",
+//   "quantity": "100 DGDS",
+//   "relative_uri": "",
+//   "memo": "have some of mine!"
+// }
 //
 // let testCreateFungibleTokenData = {
 //   "issuer": null,
@@ -206,15 +219,15 @@ let testIssueTokenData = {
 //      (some may be broken)    //
 //////////////////////////////////
 
-// UpdatePermissions.UpdatePermissions(eoslime, secondAccount, secondAccountPrivateKey, "eosio.code");
-// DeployContract(api, { account: account, contractDir: "./contract" })
+// AccountInfo.UpdatePermissions(eoslime, secondAccount, secondAccountPrivateKey, "eosio.code");
+// DeployContract(api, { account: contractAccount, contractDir: "./contract" })
 
-// Dgoods.SetConfig(api, account, "DOOPS", "1.0");
+// Dgoods.SetConfig(api, contractAccount, "DGDS", "1.0");
 // Dgoods.CreateToken(api, account, testCreateFungibleTokenData);
 // Dgoods.IssueToken(api, contractAccount, testIssueTokenData);
 // Dgoods.GetAllDgoodTables(rpc, contractAccount, 'dgood');
 // Dgoods.GetTableRows(rpc, 'dgoodstats', contractAccount);
-// Dgoods.GetCatagoryTable(rpc, contractAccount, 'testcat', 'dgoodstats');
+// Dgoods.GetCatagoryTable(rpc, contractAccount, '.est.at', 'dgoodstats');
 // Dgoods.GetCatagoryTable(rpc, account, testIssueTokenData.category, 'dgoodstats');
 // Dgoods.GetAccountTokens(rpc, contractAccount, contractAccount, 'accounts');
 // Dgoods.TransferNFT(api, account, secondAccount, [35, 36], "memo test");
