@@ -5,6 +5,7 @@ import Creator from "./components/creator.js";
 import Wallet from "./components/wallet.js";
 import User from "./models/user.js";
 import NotificationCenter from "./components/notification_center.js";
+import Dashboard from "./components/dashboard.js";
 
 import * as API from "./api/api.js";
 
@@ -18,6 +19,8 @@ export default class MainApplication {
         this._left_sidebar = new LeftSidebar('left_sidebar', this._user);
         this._token_container = new TokenContainer('main_container', this._user.name);
         this._notification_center = new NotificationCenter('notification_center');
+
+        this._dashboard = new Dashboard('main_container', this._user);
 
         this._render();
         this._renderMainListeners();
@@ -80,6 +83,21 @@ export default class MainApplication {
         document.addEventListener('render_marketplace', (e) => {
             this.RenderMarketplaceItems();
         })
+
+        document.addEventListener('navigation_switch', (e) => {
+            switch(e.detail.destination) {
+              case 'dashboard_panel':
+                this.ClearMainContainer();
+                this.RenderDashboard();
+                break;
+              case 'marketplace_panel':
+              this.ClearMainContainer();
+              this.RenderMarketplaceItems();
+                break;
+              default:
+                // code block
+            }
+        })
     }
 
     _toggle_creator_panel() {
@@ -127,18 +145,33 @@ export default class MainApplication {
         this._navbar.RenderNavbarDropdown();
         document.getElementById("left_sidebar").innerHTML = this._left_sidebar.Render();
         document.getElementById("notification_center").innerHTML = this._notification_center.Render();
-        document.getElementById("main_container").innerHTML = this._token_container.Render();
+        this.PushToMainContainer(this._token_container.Render());
     }
 
     _renderComponentsListeners() {
         this._navbar.RenderListeners();
+        this._left_sidebar.RenderEventListeners();
 
+    }
+
+    RenderDashboard() {
+        this.PushToMainContainer(this._dashboard.Render());
+    }
+
+    RenderDashboard() {
+        this.PushToMainContainer(this._dashboard.Render());
+
+        API.GetWalletOwnedItemsContents(this._user.name).then((results) => {
+            this._user.assets = results;
+            this._dashboard.PushDashboardWalletTable(this._user.assets);
+        })
     }
 
     UpdateWalletContents(user) {
         this._wallet.ClearWallet();
 
         API.GetWalletOwnedItemsContents(user).then((results) => {
+            this._user.assets = results;
             this._wallet.RenderOwnedTokens(results);
         })
 
@@ -157,6 +190,10 @@ export default class MainApplication {
         $("#main_container").empty();
     }
 
+    PushToMainContainer(html) {
+        document.getElementById("main_container").innerHTML = html;
+    }
+
     RenderWalletItems() {
         this.ClearMainContainer();
         this._wallet = new Wallet('main_container');
@@ -168,13 +205,13 @@ export default class MainApplication {
     RenderCreator() {
         this.ClearMainContainer();
         this._creator = new Creator('main_container', this._user);
-        document.getElementById("main_container").innerHTML = this._creator.Render();
+        this.PushToMainContainer(this._creator.Render());
         this._creator.RenderEventListener();
     }
 
     RenderMarketplaceItems() {
         this.ClearMainContainer();
-        document.getElementById("main_container").innerHTML = this._token_container.Render();
+        this.PushToMainContainer(this._token_container.Render());
         API.GetMarketplace().then((results) => {
             this._token_container.RenderForSaleTokenItems(results);
         }).catch((err) => {

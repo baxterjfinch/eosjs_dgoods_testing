@@ -206,8 +206,8 @@ body {
 }
 
 .token-container-main {
-    width: 100%;
-    background-color: transparent;
+    width: calc(100% - 300px);
+    background-color: #f5f5f5;
     height: calc(100% - 50px);
     position: absolute;
     display: inline-block;
@@ -216,6 +216,15 @@ body {
     text-align: center;
 }
 
+.dashboard-card-spacing {
+    margin: 50px;
+    box-shadow: 0px 1px 3px #4d5b6a30;
+    display: inline-table;
+    margin-top: 25px;
+    background-color: white;
+    margin-bottom: 25px;
+    width: calc(100% - 100px);
+}
 .creator-panel {
     width: calc(100% - 600px);
     overflow-y: auto;
@@ -237,7 +246,6 @@ body {
 
 .token-container-mason {
     height: calc(100%);
-    padding-left: 300px;
     overflow-y: auto;
     background-color: transparent;
 }
@@ -245,7 +253,7 @@ body {
 .token-card-mason {
     box-shadow: 0px 0px 5px 1px #2938522b;
     background-color: white;
-    width: calc(25% - 34px);
+    width: calc(100% - 34px);
     height: auto;
     display: inline-block;
     position: relative;
@@ -556,8 +564,11 @@ body {
 .left-sidebar {
     width: 300px;
     height: calc(100% - 50px);
-    background-color: #4d5b6b;
+    z-index: 100000000;
+    /* background-color: #2e3843; */
+    background-color: white;
     position: absolute;
+    box-shadow: 0px 1px 3px #4d5b6a30;
     left: 0;
 }
 
@@ -568,6 +579,41 @@ body {
 
 .action-dropdown-button {
     height: 100%;
+}
+
+.nav-button-custom {
+    background-color: transparent;
+    color: #a9b5c3;
+    border: 0px solid;
+    border-left: 5px solid transparent;
+    transition: .2s;
+}
+
+.nav-button-custom.active {
+    z-index: 2;
+    color: #2e3843;
+    border: 0px solid;
+    background-color: transparent;
+    border-left: 5px solid #00a4ff;
+    transition: .2s;
+    border-radius: 0px;
+}
+
+.nav-button-custom.active:hover {
+    border-left: 5px solid #00a4ff;
+    border-radius: 0px;
+    transition: .2s;
+}
+
+.nav-button-custom:hover {
+    z-index: 2;
+    color: #fff;
+    border-radius: 0px;
+    border: 0px solid;
+    color: #2e3843;
+    transition: .2s;
+    background-color: transparent;
+    border-left: 5px solid #00a4ff7a;
 }
 
 .buy-token-button {

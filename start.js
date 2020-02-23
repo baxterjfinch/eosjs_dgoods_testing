@@ -99,7 +99,7 @@ app.post('/api/create_token', (req, res) => {
     }
     let transactionDetails = Dgoods.CreateToken(api, contractAccount, req.body.user, testCreateFungibleTokenData)
     .then((response) => {
-        
+
         let testIssueTokenData = {
           "to": req.body.user,
           "category": req.body.category.toLowerCase(),
@@ -235,9 +235,9 @@ app.post('/api/buy_token', (req, res) => {
 // Dgoods.BurnNFTTokens(api, account, secondAccount, [5])
 // Dgoods.BurnFTTokens(api, account, secondAccount, 3, "25 DOOPS")
 
-// Dgoods.SubmitTokenForSale(api, contractAccount, secondAccount, [26], "1.0250 EOS");
-// Dgoods.SubmitTokenForSale(api, contractAccount, secondAccount, [22], "1.3050 EOS");
-// Dgoods.SubmitTokenForSale(api, contractAccount, secondAccount, [26], "0.0050 EOS");
+// Dgoods.SubmitTokenForSale(api, contractAccount, secondAccount, [6], "1.0250 EOS");
+// Dgoods.SubmitTokenForSale(api, contractAccount, secondAccount, [2], "1.3050 EOS");
+// Dgoods.SubmitTokenForSale(api, contractAccount, secondAccount, [3], "0.0050 EOS");
 // Dgoods.SubmitTokenForSale(api, contractAccount, secondAccount, [27], "3.0050 EOS");
 // Dgoods.SubmitTokenForSale(api, contractAccount, secondAccount, [28], "1.3450 EOS");
 // Dgoods.SubmitTokenForSale(api, contractAccount, secondAccount, [29], "1.0050 EOS");
