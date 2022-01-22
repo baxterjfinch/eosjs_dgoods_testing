@@ -14,7 +14,7 @@
     "eosjs": "^20.0.3",
     "eoslime": "1.0.2",
     "express": "^4.17.1",
-    "node-fetch": "^2.6.0",
+    "node-fetch": "^3.1.1",
     "text-encoding": "^0.7.0"
   }
 }
