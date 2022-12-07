@@ -10,10 +10,10 @@
   "license": "ISC",
   "dependencies": {
     "animate.css": "^3.7.2",
-    "body-parser": "^1.19.0",
+    "body-parser": "^1.20.1",
     "eosjs": "^20.0.3",
     "eoslime": "1.0.2",
-    "express": "^4.17.1",
+    "express": "^4.18.2",
     "node-fetch": "^2.6.0",
     "text-encoding": "^0.7.0"
   }
